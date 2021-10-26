@@ -1,0 +1,16 @@
+<div class="carousel">
+    <div class="wrap">
+        <!-- 上一张 -->
+        <i class="arrow left" (click)="onChangeSlide('pre')"></i>
+        <!-- 插槽 -->
+        <ng-content>
+
+        </ng-content>
+        <!-- 圆点模板 -->
+        <ng-template #dot let-number>
+            <i class="dot" [class.active]="number===activeIndex"></i>
+        </ng-template>
+        <!-- 下一张 -->
+        <i class="arrow right" (click)="onChangeSlide('next')"></i>
+    </div>
+</div>

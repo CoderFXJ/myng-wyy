@@ -1,0 +1,60 @@
+@import '../assets/styles/varibles';
+@import '../assets/styles/mixins';
+#app .layout{
+    // display: flex;
+  .header {
+    display: flex;
+    height: 70px;
+      .wrap{
+        margin:0 auto;
+        width: 1100px;
+        height:70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        // 左侧区域
+        .left{
+            display: flex;
+            h1{
+                color:#fff;
+                font-size:20px;
+                width: 160px;
+                height: 70px;
+            }
+        }
+
+        // 右侧区域
+        .right{
+            display: flex;
+            .search{
+                background-color: #000;
+
+                nz-input-group{
+                        height: 32px;
+                        width: 160px;
+                        padding: 5px 8px;
+                        border-radius: 32px;
+                        align-items: center;
+                        input{
+                            display: block;
+                            outline: none;
+                            border:none;
+                            color:#9b9b9b;
+                            font-size:12px;
+                            width: 125px;
+                        }
+                        .icon-search{
+                            font-size:15px;
+                        }
+                }
+            }
+        }
+    }
+
+    }
+// 底部
+nz-footer{
+    text-align: center;
+}
+}

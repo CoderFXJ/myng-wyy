@@ -1,0 +1,67 @@
+<div class="home">
+    <!-- 自定义轮播图组件（包装） -->
+    <app-wy-carousel #wyCarousel [activeIndex]="carouselIndex" (changeSlide)="onChangeSlide($event)">
+        <!-- zorro-antd组件 -->
+        <nz-carousel nzAutoPlay nzEffect="fade" [nzDotRender]="wyCarousel.dotRef" (nzBeforeChange)="onBeforeChange($event)">
+            <div nz-carousel-content class="carousel-item" *ngFor="let item of banners">
+                <a target="_blank" class="banner-item" [href]="item.url">
+                    <img [src]="item.imageUrl">
+                </a>
+            </div>
+        </nz-carousel>
+    </app-wy-carousel>
+    <!-- 主体部分 -->
+    <div class="main">
+        <div class="wrap">
+            <div class="left">
+                <div class="sec">
+                    <div class="up">
+                        <div class="navs">
+                            <h2>
+                                <i></i>
+                                <a>热门推荐</a>
+                            </h2>
+                            <nav>
+                                <a *ngFor="let item of hotTags" routerLink="/sheet" [queryParams]="{cat: item.name}">{{item.name}}</a>
+                            </nav>
+                        </div>
+                        <a routerLink="/sheet" class="more">  更多
+                            <i nz-icon  [nzIconfont] ="'icon-jiantou_xiangyou'"></i>
+                        </a>
+                    </div>
+
+
+                    <!-- <div class="down">
+                        <div class="down-wrap">
+                            <app-single-sheet class="sheet-item" *ngFor="let item of songSheetList" [sheet]="item" (onPlay)="onPlaySheet($event)" (click)="toInfo(item.id)">
+                            </app-single-sheet>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+
+
+            <!-- <div class="right">
+                <app-member-card [user]="user" (openModal)="openModal()"></app-member-card>
+
+                <div class="settled-singer">
+                    <div class="tit"><b>入驻歌手</b></div>
+                    <div class="list">
+                        <div class="card" *ngFor="let item of singers" [routerLink]="['/singer', item.id]">
+                            <div class="pic">
+                                <img appImgDefault [src]="item.picUrl" [alt]="item.name">
+                            </div>
+                            <div class="txt">
+                                <b class="ellipsis">{{item.name}}</b>
+                                <span>专辑数：{{item.albumSize}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+        </div>
+    </div>
+</div>

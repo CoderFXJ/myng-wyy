@@ -1,0 +1,52 @@
+.carousel{
+    padding: 10px 0;
+    background-color: #001529;
+    .wrap{
+      position: relative;
+      .dot{
+        display: block;
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+        background: url('./banner.png') 3px -343px;
+        cursor: pointer;
+        &.active{
+          background-position: -16px -343px;
+        }
+      }
+      .arrow{
+        display: block;
+        position: absolute;
+        width: 37px;
+        height: 63px;
+        top:50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        &.left{
+          left: -68px;
+          background: url('./banner.png')  0 -360px no-repeat;
+          &:hover{
+              background: url('./arrl_hvr.png') center;
+          }
+        }
+        &.right{
+          right: -68px;
+          background: url('./banner.png') 0 -508px no-repeat;
+          &:hover{
+              background: url('./arrr_hvr.png')  center;
+          }
+        }
+      }
+    }
+    // 解决当前圆点移位问题
+    ::ng-deep .ant-carousel {
+      .slick-dots {
+        li{
+          &.slick-active{
+            width: 16px !important;
+          }
+        }
+      }
+    }
+  }
+
