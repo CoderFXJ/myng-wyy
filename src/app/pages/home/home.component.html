@@ -13,6 +13,7 @@
     <!-- 主体部分 -->
     <div class="main">
         <div class="wrap">
+            <!-- 主体左侧 -->
             <div class="left">
                 <div class="sec">
                     <div class="up">
@@ -25,43 +26,45 @@
                                 <a *ngFor="let item of hotTags" routerLink="/sheet" [queryParams]="{cat: item.name}">{{item.name}}</a>
                             </nav>
                         </div>
-                        <a routerLink="/sheet" class="more">  更多
-                            <i nz-icon  [nzIconfont] ="'icon-jiantou_xiangyou'"></i>
+                        <a routerLink="/sheet" class="more"> 更多
+                            <i nz-icon [nzIconfont]="'icon-jiantou_xiangyou'"></i>
                         </a>
                     </div>
-
-
-                    <!-- <div class="down">
+                    <div class="down">
+                        <!-- 单个歌单组件 -->
                         <div class="down-wrap">
-                            <app-single-sheet class="sheet-item" *ngFor="let item of songSheetList" [sheet]="item" (onPlay)="onPlaySheet($event)" (click)="toInfo(item.id)">
+                            <app-single-sheet *ngFor="let sheet of songSheetList" [singleSheet]='sheet'>
                             </app-single-sheet>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-
-
-
-            <!-- <div class="right">
-                <app-member-card [user]="user" (openModal)="openModal()"></app-member-card>
-
-                <div class="settled-singer">
-                    <div class="tit"><b>入驻歌手</b></div>
-                    <div class="list">
-                        <div class="card" *ngFor="let item of singers" [routerLink]="['/singer', item.id]">
-                            <div class="pic">
-                                <img appImgDefault [src]="item.picUrl" [alt]="item.name">
-                            </div>
-                            <div class="txt">
-                                <b class="ellipsis">{{item.name}}</b>
-                                <span>专辑数：{{item.albumSize}}</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
+            <div class="right">
+                <!-- 会员登陆 -->
+                <app-member-card></app-member-card>
 
-
+                <div class="singer-box">
+                    <div class="head">
+                        <span class="title">入驻歌手</span>
+                        <a href="" class="all">查看全部 ></a>
+                    </div>
+                    <!-- 歌手列表 -->
+                    <ul class="singers">
+                        <li class="singer-item" *ngFor="let singer of artists;let id = index" [id]="id">
+                            <a href="" class="link">
+                                <img class="singer-img" [src]="singer.picUrl" alt="">
+                                <div class="info">
+                                    <div class="title">{{singer.name}}</div>
+                                    <div class="dec" nz-typography nzEllipsis>专辑数量：{{singer.albumSize}}</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="apply">
+                        <a href="">申请成为网易音乐人</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

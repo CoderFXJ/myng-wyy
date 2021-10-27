@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
-import { Banner, HotTags, SongSheet } from 'src/app/services/data-types/common.types';
-import { HomeService } from 'src/app/services/home.service';
-import { NzIconService } from 'ng-zorro-antd/icon';
-
+import { Artist, Banner, HotTags, SongSheet } from 'src/app/services/data-types/common.types';
+// import { HomeService } from 'src/app/services/home.service';
+// import { ArtistsService } from 'src/app/services/artists.service'
+import { map } from 'rxjs/internal/operators';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,38 +19,66 @@ export class HomeComponent implements OnInit {
   banners: Banner[] = [];
   hotTags:HotTags[] = [];
   songSheetList:SongSheet[] = [];
+  artists:Artist[] = []
+
 
   // 获取nz-carousel组件实例
   @ViewChild(NzCarouselComponent, { static: true })
   private nzCarousel!: NzCarouselComponent;
 
-  constructor(private homeServece:HomeService,private iconService:NzIconService) {
-      this.iconService.fetchFromIconfont({
-        scriptUrl:'//at.alicdn.com/t/font_2893624_m7cdmqurx7l.js'
+  constructor(
+    private route:ActivatedRoute
+    ) {
+      this.route.data.pipe(map((res:any)=>res.homeDatas))
+      .subscribe(([banners,hotTags,songSheetList,artists])=>{
+        this.banners = banners
+        this.hotTags = hotTags
+        this.songSheetList = songSheetList
+        this.artists = artists
+        
       })
-
-    // 保存轮播数据
-    this.homeServece.getBanners().subscribe(banners => {
-     this.banners = banners
-    //  console.log('this.banners: ', this.banners);
-    })
-
-    // 接收HotTags数据
-    this.homeServece.getHotTags().subscribe(tags =>{
-
-      this.hotTags = tags
-      console.log('热门标签: ', this.hotTags )
-    })
-
-     // 接收推荐歌单数据
-     this.homeServece.getPerosonalSheetList().subscribe(sheets =>{
-       this.songSheetList = sheets
-      console.log('推荐歌单 : ', this.songSheetList );
-    })
+    // this.getBanners();
+    // this.getHotTags();
+    // this.getPerosonalSheetList();
+    // this.getArtists();
    }
 
   ngOnInit(): void {
   }
+  /**  初始版获取数据方式
+   * 
+      // 保存轮播数据
+      private getBanners(){
+        this.homeService.getBanners().subscribe(banners => {
+          this.banners = banners
+        //  console.log('this.banners: ', this.banners);
+        })
+      }
+      // 接收HotTags数据
+      private getHotTags(){
+      this.homeService.getHotTags().subscribe(tags =>{
+        this.hotTags = tags
+        // console.log('热门标签: ', this.hotTags )
+      })
+      }
+
+      // 接收推荐歌单数据
+      private getPerosonalSheetList(){
+        this.homeService.getPerosonalSheetList().subscribe(sheets =>{
+          this.songSheetList = sheets
+        // console.log('推荐歌单 : ', this.songSheetList );
+      })
+      } 
+      
+      // 接收入驻歌手
+      private getArtists(){
+        this.artistsService.getEnterArtists().subscribe(artists =>{
+          this.artists = artists
+          console.log('this.artists: ', this.artists);
+        })
+      }
+ */
+   
   // 切换轮播图之前回调函数
   onBeforeChange(e:any){
     this.carouselIndex = e.to
@@ -57,7 +86,6 @@ export class HomeComponent implements OnInit {
 
   // 接收wy-carousel传来的点击箭头类型
   onChangeSlide(type:'pre'|'next'){
-    console.log( type);
     // 调用nzCarousel组件的pre()或next方法
     this.nzCarousel[type]()
   }
